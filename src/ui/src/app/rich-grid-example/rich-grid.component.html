@@ -1,0 +1,107 @@
+<div class="overlay" align="center" *ngIf="hideprogress == false">
+	<img  src="images/spinner_2.gif" style="width: 80px;">
+</div>
+<mat-toolbar color="primary" role="header" style="background: #1565C0">
+<mat-toolbar-row> 
+	<img src="https://www.cognizant.com/content/dam/cognizant_foundation/Dotcomimage/COG-Logo-White.svg" style="width: 80px;">
+
+	<span style="padding-left: 33%">Forecast & Reports</span> 
+	<span class="headder-spacer"></span> 
+</mat-toolbar-row> </mat-toolbar>
+<div style="padding: 5px 5px 10px 10px">
+		
+	<div style="padding-top: 5px;"> 
+		<mat-chip-list #chipList>
+			<mat-chip *ngIf="showALLChip" style="margin-right: 5px;margin-top: 5px;" [selectable]="selectable"
+						[removable]="removable" (remove)="removeAllProjectSelection()">
+				All
+				<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+			</mat-chip>
+			<mat-chip style=" margin-right: 5px;margin-top: 5px;" *ngFor="let project of chosenProject" [selectable]="selectable"
+						[removable]="removable" (remove)="remove(project)">
+				{{project.projectName}}
+				<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+			</mat-chip>
+			<input matInput placeholder="Filter by project" class="head-control"
+					[matChipInputFor]="chipList"
+					[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+					[matChipInputAddOnBlur]="addOnBlur"
+					(matChipInputTokenEnd)="add($event)"
+					[matAutocomplete]="auto2" [formControl]="projectCtrl" style="margin: 0px" (focus)="focusOnProjectAutoComplete()"/>
+			<span class="controls-spacing"></span> 			
+		</mat-chip-list>	
+		<mat-autocomplete #auto2="matAutocomplete"> 			 
+			<mat-option *ngFor="let project of filteredProjectsObs | async"
+				[value]="project.projectId" (click)="autoComplete(project)" > 
+				<span>{{project.projectName }}</span> 
+			</mat-option> 
+			<mat-option [value]="all" (click)="listAllProject()" > 
+				<span>All</span> 
+			</mat-option>
+		</mat-autocomplete>
+	</div>
+
+	<div style="padding-top: 5px;">			
+		<input matInput class="head-control" (keyup)="onQuickFilterChanged($event)" type="text"
+			id="quickFilterInput" placeholder="Filter by data" style="width: 50%;" />		
+		<div style="float: right" >
+			<span class="controls-spacing"></span> 
+			<button mat-stroked-button (click)="onBtExport()">Export Current Rows to Excel</button>
+			<span class="controls-spacing"></span>
+			<button mat-stroked-button (click)="getALLReports()">Export All Data To Excel</button>
+		</div>
+	</div>
+
+	<div style="padding-top: 5px;">
+		<button mat-stroked-button (click)="saveUpdated()">Save</button>
+		<span class="controls-spacing"></span>
+		<button mat-stroked-button   (click)="openDialog()">Add Row</button>
+		<span class="controls-spacing"></span>
+		<button mat-stroked-button (click)="onDeleteRow()" [disabled]="!selectedRow">Delete Row</button>
+		<span class="controls-spacing"></span>
+		<button mat-stroked-button (click)="onDuplicateRow()" [disabled]="!selectedRow">Duplicate Row</button>
+	</div>
+</div>
+<!-- [getMainMenuItems]="getMainMenuItems"
+		[postProcessPopup]="postProcessPopup" -->
+<!-- [showToolPanel]="true" -->
+<div style="margin: 0px 10px 0px 10px">
+	<ag-grid-angular style="width: 100%; height: 500px;" class="ag-fresh"
+		#agGrid
+		id="myGrid"
+		[overlayNoRowsTemplate]="overlayNoRowsTemplate" 
+    	[defaultColDef]="defaultColDef"
+    	[showToolPanel]="false"
+		[enableFilter]="true"
+		[rowClassRules]="rowClassRules" [gridOptions]="gridOptions"
+		[columnDefs]="columnDefs" [showToolPanel]="showToolPanel"
+		[rowData]="rowData" [excelStyles]="excelStyles" enableColResize
+		[enableSorting]="true" enableFilter groupHeaders
+		suppressRowClickSelection toolPanelSuppressGroups
+		toolPanelSuppressValues rowHeight="25" rowSelection="single"
+		[sortingOrder]="sortingOrder" (modelUpdated)="onModelUpdated()"
+		(cellClicked)="onCellClicked($event)"
+		(cellDoubleClicked)="onCellDoubleClicked($event)"
+		(cellContextMenu)="onCellContextMenu($event)"
+		(cellValueChanged)="onCellValueChanged($event)"
+		(cellFocused)="onCellFocused($event)"
+		(rowSelected)="onRowSelected($event)"
+		(selectionChanged)="onSelectionChanged($event)"
+		(beforeFilterChanged)="onBeforeFilterChanged()"
+		(afterFilterChanged)="onAfterFilterChanged()"
+		(filterModified)="onFilterModified()"
+		(beforeSortChanged)="onBeforeSortChanged()"
+		(afterSortChanged)="onAfterSortChanged()"
+		(virtualRowRemoved)="onVirtualRowRemoved($event)"
+		(rowClicked)="onRowClicked($event)" (gridReady)="onReady($event)"
+		(getSelectedRows)="getSelectedRows()"
+		(columnEverythingChanged)="onColumnEvent($event)"
+		(columnRowGroupChanged)="onColumnEvent($event)"
+		(columnValueChanged)="onColumnEvent($event)"
+		(columnMoved)="onColumnEvent($event)"
+		(columnVisible)="onColumnEvent($event)"
+		(columnGroupOpened)="onColumnEvent($event)"
+		(columnResized)="onColumnEvent($event)"
+		(columnPinnedCountChanged)="onColumnEvent($event)">
+	</ag-grid-angular>
+</div>

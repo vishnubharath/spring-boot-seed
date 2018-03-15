@@ -1,0 +1,116 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.headder-spacer{
+    flex: 1 1 auto;
+ }
+
+ .controls-spacing {
+     padding : 3px;
+ }
+
+ .header-toolbar {
+    position: fixed;
+    z-index: 2;
+}
+.ag-header-cell-label .ag-header-cell-text{
+    font-size: 12px;
+    padding-left : 20%;
+   
+}
+
+.ag-fresh .ag-header-group-cell-label {
+    padding: 2px;
+    padding-top: 4px;
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+    margin-top: -4px;
+}
+ 
+.ag-fresh .ag-header {
+    background: #1565C0;
+    color: white;
+}
+
+.ag-fresh .ag-row-even {
+    background-color:#E3F2FD;
+}
+
+.ag-fresh .ag-row-odd {
+    background-color:#ffffff;
+}
+
+.mat-chip:not(.mat-basic-chip) {
+    background-color: #FFCC80;
+    color: #000;
+}
+
+ .head-control{
+    line-height: 0px;
+    font-size: 10px;
+    line-height: 20px !important;
+    background:#4fbedf;
+    padding: 0px 5px;
+   
+}
+
+.mat-stroked-button{
+    line-height: 0px;
+    font-size: 10px;
+    line-height: 20px !important;
+    background:#26A69A;
+    padding: 0px 5px;
+    color: white;
+    font-weight: bold
+   
+}
+.mat-stroked-button[disabled]{
+    background:#d9e3ea;
+}
+
+.head-control{
+    background: white;
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+}
+
+.mat-card{
+    background: #e2eef9;
+}
+
+* {
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+  }
+
+
+.ag-header-group-cell{
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.toast-top-center {
+    top: 56%;
+    margin: 0 auto;
+    width: 100%
+ }
+
+ .addRow {
+     padding-left: 90%;
+ }
+
+ .overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+    padding: 20%;
+}
+
+.ag-side-buttons button {
+    background: #AB47BC;
+    color: #fff;
+}

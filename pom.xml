@@ -4,17 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.seed.boot</groupId>
-	<artifactId>spring</artifactId>
+	<artifactId>vbj</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>spring</name>
-	<description>Demo project for Spring Boot</description>
+	<name>vbj</name>
+	<description>Seed project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
+		<version>2.0.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -25,13 +25,15 @@
 	</properties>
 
 	<dependencies>
+	<!-- 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+	 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,7 +47,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -55,6 +67,48 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+			  <artifactId>exec-maven-plugin</artifactId>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <version>1.4.0</version>
+			  <executions>
+			    <execution>
+			      <id>npm install</id>
+			      <goals>
+			        <goal>exec</goal>
+			      </goals>
+			      <phase>generate-sources</phase>
+			      <configuration>
+			        <executable>npm</executable>
+			        <arguments>
+			          <argument>install</argument>
+			        </arguments>
+			        <workingDirectory>${basedir}/src/ui</workingDirectory>
+			        <target>
+			          <echo message="Npm install" />
+			        </target>
+			      </configuration>
+			    </execution>
+			    <execution>
+			      <id>npm run build</id>
+			      <goals>
+			        <goal>exec</goal>
+			      </goals>
+			      <phase>compile</phase>
+			      <configuration>
+			        <executable>npm</executable>
+			        <arguments>
+			          <argument>run</argument>
+			          <argument>build</argument>
+			        </arguments>
+			        <workingDirectory>${basedir}/src/ui</workingDirectory>
+			        <target>
+			          <echo message="Npm build" />
+			        </target>
+			      </configuration>
+			    </execution>
+			  </executions>
 			</plugin>
 		</plugins>
 	</build>
